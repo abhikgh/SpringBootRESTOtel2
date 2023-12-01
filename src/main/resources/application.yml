@@ -1,0 +1,66 @@
+spring:
+  application:
+    name: SpringBootRESTOtel2
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springbootdb
+    username: postgres
+    password: tiger
+    driver-class-name: org.postgresql.Driver
+    hikari:
+     connection-timeout: 5000
+     maximum-pool-size: 5
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+       format-sql: true
+       dialect: org.hibernate.dialect.PostgreSQLDialect
+  zipkin:
+    base-url: http://localhost:9411/
+    sender:
+      type: web
+  main:
+    allow-bean-definition-overriding: true
+  spring:
+    sleuth:
+      otel:
+        config:
+          trace-id-ratio-based: 1.0
+      exporter:
+        otlp:
+          endpoint: http://collector:4317
+
+
+server:
+  port: 9152
+ 
+service:
+  username: abhikgh
+  password: welcome@1a
+
+jwt:
+  expirationInMillis: 180000
+  secret: abcdefghijklmnopqrstuvwxyz
+  refreshTokenExpirationInMillis: 180000
+
+opentracing:
+  jaeger:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["health","prometheus","metrics","info"]
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  info:
+    java:
+      enabled: true
+    env:
+      enabled: true
